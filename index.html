@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For Someone Special 💖</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff758c,#ff7eb3);
+    overflow:hidden;
+}
+
+.card{
+    width:350px;
+    background:white;
+    padding:40px 25px;
+    border-radius:25px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+.emoji{
+    font-size:60px;
+    margin-bottom:15px;
+}
+
+h1{
+    color:#ff4f7b;
+    margin-bottom:15px;
+    font-size:32px;
+}
+
+p{
+    font-size:22px;
+    color:#333;
+    margin-bottom:25px;
+}
+
+button{
+    padding:12px 28px;
+    margin:10px;
+    border:none;
+    border-radius:30px;
+    font-size:18px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.08);
+}
+
+.yes{
+    background:#ff4f7b;
+    color:white;
+}
+
+.no{
+    background:#ddd;
+    color:#333;
+}
+
+.heart{
+    position:absolute;
+    top:-20px;
+    color:white;
+    animation:fall linear forwards;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(110vh);
+        opacity:0;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card" id="box">
+
+    <div class="emoji">💖</div>
+
+    <h1>Hey You</h1>
+
+    <p>Do you love me?</p>
+
+    <button class="yes"
+    onclick="firstAnswer('Yes')">
+
+        Yes 💕
+
+    </button>
+
+    <button class="no"
+    onclick="firstAnswer('No')">
+
+        No 😭
+
+    </button>
+
+</div>
+
+<script>
+
+/* TELEGRAM */
+
+const BOT_TOKEN =
+"8770173806:AAHVHhv-UAC0Uzpp-Lh2L3-SsrUFwFzmVIU";
+
+const CHAT_ID =
+"7313735579";
+
+/* SEND MESSAGE */
+
+async function sendToTelegram(message){
+
+    const url =
+    `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+
+    try{
+
+        await fetch(url,{
+            method:"POST",
+
+            headers:{
+                "Content-Type":"application/json"
+            },
+
+            body:JSON.stringify({
+                chat_id:CHAT_ID,
+                text:message
+            })
+        });
+
+    }catch(error){
+
+        console.log(error);
+
+    }
+}
+
+/* FIRST QUESTION */
+
+function firstAnswer(answer){
+
+    sendToTelegram(
+        "💖 First Question Answer: " + answer
+    );
+
+    const box =
+    document.getElementById("box");
+
+    if(answer === "Yes"){
+
+        box.innerHTML = `
+        
+            <div class="emoji">🥰</div>
+
+            <h1>YAYYY ❤️</h1>
+
+            <p>Can you be my girlfriend?</p>
+
+            <button class="yes"
+            onclick="finalAnswer('Yes')">
+
+                Yes 💍
+
+            </button>
+
+            <button class="no"
+            onclick="finalAnswer('No')">
+
+                No 😭
+
+            </button>
+        
+        `;
+
+    }else{
+
+        box.innerHTML = `
+        
+            <div class="emoji">😢</div>
+
+            <h1>Aww...</h1>
+
+            <p>
+                Anyway... can you still
+                be my girlfriend?
+            </p>
+
+            <button class="yes"
+            onclick="finalAnswer('Yes')">
+
+                Okay 💖
+
+            </button>
+
+            <button class="no"
+            onclick="finalAnswer('No')">
+
+                Still No 💔
+
+            </button>
+        
+        `;
+    }
+}
+
+/* FINAL ANSWER */
+
+function finalAnswer(answer){
+
+    sendToTelegram(
+        "💍 Girlfriend Question Answer: " + answer
+    );
+
+    const box =
+    document.getElementById("box");
+
+    if(answer === "Yes"){
+
+        sendToTelegram(
+            "🎉 SHE SAID YES ❤️"
+        );
+
+        box.innerHTML = `
+        
+            <div class="emoji">💍</div>
+
+            <h1>OMGGG ❤️</h1>
+
+            <p>
+                You just made me the
+                happiest person alive 🥺💕
+            </p>
+        
+        `;
+
+    }else{
+
+        sendToTelegram(
+            "💔 She said no"
+        );
+
+        box.innerHTML = `
+        
+            <div class="emoji">😭</div>
+
+            <h1>It's Okay...</h1>
+
+            <p>
+                You'll always be special
+                to me 💖
+            </p>
+        
+        `;
+    }
+}
+
+/* FLOATING HEARTS */
+
+function createHeart(){
+
+    const heart =
+    document.createElement("div");
+
+    heart.classList.add("heart");
+
+    heart.innerHTML = "💖";
+
+    heart.style.left =
+    Math.random() * window.innerWidth + "px";
+
+    heart.style.fontSize =
+    Math.random() * 20 + 15 + "px";
+
+    heart.style.animationDuration =
+    Math.random() * 3 + 2 + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+
+        heart.remove();
+
+    },5000);
+}
+
+setInterval(createHeart,300);
+
+</script>
+
+</body>
+</html>
