@@ -167,6 +167,8 @@ function firstAnswer(answer){
     const box =
     document.getElementById("box");
 
+    /* IF YES */
+
     if(answer === "Yes"){
 
         box.innerHTML = `
@@ -175,12 +177,86 @@ function firstAnswer(answer){
 
             <h1>YAYYY ❤️</h1>
 
-            <p>Can you be my girlfriend?</p>
+            <p>
+                Can you be my girlfriend forever?
+            </p>
+
+            <button class="yes"
+            onclick="foreverAnswer('Yes')">
+
+                Yes 💍
+
+            </button>
+
+            <button class="no"
+            onclick="foreverAnswer('No')">
+
+                No 😭
+
+            </button>
+        
+        `;
+
+    }
+
+    /* IF NO */
+
+    else{
+
+        box.innerHTML = `
+        
+            <div class="emoji">😢</div>
+
+            <h1>Aww...</h1>
+
+            <p>
+                Anyway... can you still
+                be my girlfriend?
+            </p>
+
+            <button class="yes"
+            onclick="girlfriendAnswer('Yes')">
+
+                Okay 💖
+
+            </button>
+
+            <button class="no"
+            onclick="girlfriendAnswer('No')">
+
+                Still No 💔
+
+            </button>
+        
+        `;
+    }
+}
+
+/* GIRLFRIEND QUESTION */
+
+function girlfriendAnswer(answer){
+
+    sendToTelegram(
+        "💕 Girlfriend Question Answer: " + answer
+    );
+
+    const box =
+    document.getElementById("box");
+
+    if(answer === "Yes"){
+
+        box.innerHTML = `
+        
+            <div class="emoji">🥺</div>
+
+            <h1>One More Question ❤️</h1>
+
+            <p>Forever?</p>
 
             <button class="yes"
             onclick="finalAnswer('Yes')">
 
-                Yes 💍
+                Forever 💍
 
             </button>
 
@@ -195,33 +271,20 @@ function firstAnswer(answer){
 
     }else{
 
-        box.innerHTML = `
-        
-            <div class="emoji">😢</div>
+        finalAnswer("No");
 
-            <h1>Aww...</h1>
-
-            <p>
-                Anyway... can you still
-                be my girlfriend?
-            </p>
-
-            <button class="yes"
-            onclick="finalAnswer('Yes')">
-
-                Okay 💖
-
-            </button>
-
-            <button class="no"
-            onclick="finalAnswer('No')">
-
-                Still No 💔
-
-            </button>
-        
-        `;
     }
+}
+
+/* FOREVER QUESTION */
+
+function foreverAnswer(answer){
+
+    sendToTelegram(
+        "💍 Forever Question Answer: " + answer
+    );
+
+    finalAnswer(answer);
 }
 
 /* FINAL ANSWER */
@@ -229,7 +292,7 @@ function firstAnswer(answer){
 function finalAnswer(answer){
 
     sendToTelegram(
-        "💍 Girlfriend Question Answer: " + answer
+        "❤️ Final Answer: " + answer
     );
 
     const box =
@@ -238,7 +301,7 @@ function finalAnswer(answer){
     if(answer === "Yes"){
 
         sendToTelegram(
-            "🎉 SHE SAID YES ❤️"
+            "🎉 SHE SAID YES FOREVER ❤️"
         );
 
         box.innerHTML = `
